@@ -21,8 +21,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.15",
@@ -47,6 +46,7 @@
     "nx": "21.2.1",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.2"
+    "typescript": "~5.7.2",
+    "zone.js": "^0.13.0"
   }
 }

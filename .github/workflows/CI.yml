@@ -39,6 +39,9 @@ jobs:
     needs: CI
     runs-on: ubuntu-latest
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
       # Build the Angular project
       - name: Build
         run: npm run build
@@ -47,6 +50,9 @@ jobs:
     needs: [Build]
     runs-on: ubuntu-latest
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
       # Run lint tests
       - name: Lint
         # Run linting to ensure code quality

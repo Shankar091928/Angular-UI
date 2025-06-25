@@ -14,6 +14,20 @@ export default {
     '^@app/(.*)$': '<rootDir>/src/app/$1',
   },
   collectCoverage: true,
-  coverageReporters: ['html'],
-  coverageDirectory: 'coverage',
+  collectCoverageFrom: [
+    'src/app/**/*.{ts,js}'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0
+    },
+  },
+  coverageReporters: [
+    'jest-preset-angular',
+    'jest-html-reporter',
+  ],
+  coverageDirectory: '<rootDir>/reports/coverage',
 };

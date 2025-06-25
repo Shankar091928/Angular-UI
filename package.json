@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "start": "nx serve --open",
+    "build": "nx build",
+    "watch": "nx build --watch --configuration development",
     "test:unit": "jest --config jest.config.ts",
     "test:unit:watch": "jest --config jest.config.ts --watchAll",
     "test:e2e": "cypress run",
-    "lint": "ng lint"
+    "lint": "nx lint"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.15",
+    "@angular-devkit/core": "^19.2.15",
+    "@angular-devkit/schematics": "^19.2.15",
     "@angular-eslint/builder": "^20.1.1",
     "@angular-eslint/eslint-plugin": "^20.1.1",
     "@angular-eslint/eslint-plugin-template": "^20.1.1",
@@ -33,12 +35,16 @@
     "@angular-eslint/template-parser": "^20.1.1",
     "@angular/cli": "^19.2.15",
     "@angular/compiler-cli": "^19.2.0",
+    "@nx/angular": "21.2.1",
+    "@nx/workspace": "21.2.1",
+    "@schematics/angular": "^19.2.15",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/parser": "^8.35.0",
     "cypress": "^13.0.0",
     "eslint": "^9.29.0",
     "jest": "^29.7.0",
     "jest-preset-angular": "^14.6.0",
+    "nx": "21.2.1",
     "ts-jest": "^29.4.0",
     "typescript": "~5.7.2"
   }

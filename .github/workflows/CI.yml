@@ -9,7 +9,7 @@ on:
   schedule:
     - cron: '0 0 * * *'  # runs every day at midnight UTC
 
-jobs:
+jobs:jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
@@ -23,25 +23,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Upload workspace with 30-day retention
+      - name: Build Angular app
+        run: npx nx build
+
       - name: Upload workspace
         uses: actions/upload-artifact@v4
         with:
           name: workspace
-          path: .
-          retention-days: 30
-
-  Build:
-    needs: CI
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restore workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: workspace
-
-      - name: Build
-        run: npx nx build
+          path: |
+            dist/
+            node_modules/
 
   Tests:
     needs: Build

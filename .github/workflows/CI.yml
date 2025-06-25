@@ -1,84 +1,63 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events
   push:
     branches: [ "**" ]
   pull_request:
     branches: [ "**" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # runs every day at midnight UTC
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
   CI:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Set up NodeJS
       - name: Set up NodeJS
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Install dependencies using npm ci
       - name: Install dependencies
         run: npm ci
 
-      # Upload artifacts to workspace. This allows subsequent jobs to access the files and node_modules
+      # Upload workspace with 30-day retention
       - name: Upload workspace
         uses: actions/upload-artifact@v4
         with:
           name: workspace
           path: |
-            ./
-            node_modules/
+            .  # You can narrow this to dist/, node_modules/, etc.
+          retention-days: 30
 
-  # This job builds the Angular project using Nx
-  # It depends on the CI job to complete first
-  # and uses the files and node_modules from the CI job
   Build:
     needs: CI
     runs-on: ubuntu-latest
     steps:
-      # Use files and node_modules from previous job
       - name: Restore workspace
         uses: actions/download-artifact@v4
         with:
           name: workspace
 
-      # Build the Angular project using Nx
       - name: Build
         run: npx nx build
 
   Tests:
-    needs: [Build]
+    needs: Build
     runs-on: ubuntu-latest
     steps:
-      # Use files and node_modules from previous job
       - name: Restore workspace
         uses: actions/download-artifact@v4
         with:
           name: workspace
 
-      # Run lint tests
       - name: Lint
         run: npm run lint
 
-      # Run Unit tests
       - name: Unit tests
         run: npm run test:unit
 
-      # Run E2E tests
       # - name: E2E tests
       #   run: npm run test:e2e

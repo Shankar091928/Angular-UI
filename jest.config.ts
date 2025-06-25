@@ -8,7 +8,7 @@ const config: Config.InitialOptions = {
   },
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'js', 'html', 'json'],
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],  // adjust as needed
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   coverageThreshold: {
     global: {
       branches: 0,

@@ -6,8 +6,8 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   transform: {
     '^.+\\.(ts|html)$': ['ts-jest', {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
+      tsconfig: 'tsconfig.spec.json',
+      useESM: false
     }]
   },
   moduleFileExtensions: ['ts', 'js', 'html'],

@@ -42,9 +42,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Build the Angular project
+      # Build the Angular project using Nx
       - name: Build
-        run: npm run build
+        run: npx nx build
 
   Tests:
     needs: [Build]
@@ -64,4 +64,4 @@ jobs:
 
       # Run E2E tests
       # - name: E2E tests
-      #   run: npm run test:e2e 
+      #   run: npm run test:e2e

@@ -1,22 +1,14 @@
-export default {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  roots: ['<rootDir>/src'],
-  moduleFileExtensions: ['ts', 'js', 'html'],
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
   },
-  testMatch: [
-    '**/+(*.)+(spec|test).+(ts|js)?(x)'
-  ],
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  moduleNameMapper: {
-    '^@app/(.*)$': '<rootDir>/src/app/$1',
-  },
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/app/**/*.{ts,js}'
-  ],
+  testEnvironment: 'jsdom',
+  moduleFileExtensions: ['ts', 'js', 'html', 'json'],
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],  // adjust as needed
   coverageThreshold: {
     global: {
       branches: 0,
@@ -25,9 +17,11 @@ export default {
       statements: 0
     },
   },
-  coverageReporters: [
-    'jest-preset-angular',
-    'jest-html-reporter',
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/app/**/*.ts',
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
 };
+
+export default config;

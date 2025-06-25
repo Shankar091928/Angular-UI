@@ -34,10 +34,6 @@ jobs:
             dist/
             node_modules/
 
-  Tests:
-    needs: CI
-    runs-on: ubuntu-latest
-    steps:
       - name: Restore workspace
         uses: actions/download-artifact@v4
         with:

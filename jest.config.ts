@@ -1,11 +1,17 @@
-export default {
+import { Config } from 'jest';
+
+const config: Config = {
   preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   transform: {
-    '^.+\\.(ts|html)$': 'ts-jest'
+    '^.+\\.(ts|html)$': ['ts-jest', {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$'
+    }]
   },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  collectCoverage: true,
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.spec.json',
@@ -20,7 +26,6 @@ export default {
       statements: 0
     },
   },
-  collectCoverage: true,
   collectCoverageFrom: [
     'src/app/**/*.ts',
     '!src/app/**/*.module.ts',
@@ -28,3 +33,5 @@ export default {
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
 };
+
+export default config;

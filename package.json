@@ -6,9 +6,9 @@
     "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest --config jest.config.ts",
-    "test:watch": "jest --config jest.config.ts --watchAll",
-    "e2e": "cypress run",
+    "test:unit": "jest --config jest.config.ts",
+    "test:unit:watch": "jest --config jest.config.ts --watchAll",
+    "test:e2e": "cypress run",
     "lint": "ng lint"
   },
   "private": true,

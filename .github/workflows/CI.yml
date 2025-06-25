@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -25,8 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Set up Node.js
-      - name: Set up Node.js
+      # Set up NodeJS
+      - name: Set up NodeJS
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -34,15 +34,28 @@ jobs:
       # Install dependencies using npm ci
       - name: Install dependencies
         run: npm ci
-
-      # Run lint
-      - name: Run lint
-        run: npm run lint
-
+  
+  Build:
+    needs: CI
+    runs-on: ubuntu-latest
+    steps:
       # Build the Angular project
       - name: Build
         run: npm run build
 
-      # Run Lint test
-      - name: Lint tests
+  Tests:
+    needs: [Build]
+    runs-on: ubuntu-latest
+    steps:
+      # Run lint tests
+      - name: Lint
+        # Run linting to ensure code quality
         run: npm run lint
+
+      # Run Unit tests
+      - name: Unit tests
+        run: npm run test:unit
+
+      # Run E2E tests
+      - name: E2E tests
+        run: npm run test:e2e 

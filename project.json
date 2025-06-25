@@ -2,16 +2,15 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "name": "angular-ui",
   "projectType": "application",
-  "generators": {},
   "sourceRoot": "src",
   "prefix": "app",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@nx/angular:webpack-browser",
       "options": {
         "outputPath": "dist/angular-ui",
         "index": "src/index.html",
-        "browser": "src/main.ts",
+        "main": "src/main.ts",
         "polyfills": [
           "zone.js"
         ],
@@ -40,6 +39,15 @@
       },
       "configurations": {
         "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "extractCss": true,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -51,66 +59,50 @@
               "maximumWarning": "4kB",
               "maximumError": "8kB"
             }
-          ],
-          "outputHashing": "all"
+          ]
         },
         "development": {
           "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "extractLicenses": false
         }
       },
-      "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
+      "defaultConfiguration": "development",
       "configurations": {
-        "production": {
-          "buildTarget": "angular-ui:build:production"
-        },
         "development": {
           "buildTarget": "angular-ui:build:development"
+        },
+        "production": {
+          "buildTarget": "angular-ui:build:production"
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n"
-    },
-    "test": {
-      "executor": "@angular-devkit/build-angular:karma",
-      "options": {
-        "polyfills": [
-          "zone.js",
-          "zone.js/testing"
-        ],
-        "tsConfig": "tsconfig.spec.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "public"
-          }
-        ],
-        "styles": [
-          "src/styles.css"
-        ],
-        "scripts": []
       }
     },
+    "extract-i18n": {
+      "executor": "@nx/angular:extract-i18n",
+      "options": {}
+    },
     "lint": {
-      "executor": "@angular-eslint/builder:lint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "src/**/*.ts",
           "src/**/*.html"
         ]
-      },
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
       "outputs": [
-        "{options.outputFile}"
-      ]
+        "coverage/angular-ui"
+      ],
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "passWithNoTests": true
+      }
     }
   }
 }

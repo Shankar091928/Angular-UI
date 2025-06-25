@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nx serve --open",
+    "start": "nx serve",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test:unit": "jest --config jest.config.ts",
     "test:unit:watch": "jest --config jest.config.ts --watchAll",
     "test:e2e": "cypress run",
-    "lint": "nx lint"
+    "lint": "nx lint",
+    "local": "nx build && nx serve --open"
   },
   "private": true,
   "dependencies": {

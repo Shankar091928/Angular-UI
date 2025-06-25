@@ -1,14 +1,17 @@
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
+export default {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest',
-  },
   testEnvironment: 'jsdom',
-  moduleFileExtensions: ['ts', 'js', 'html', 'json'],
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  transform: {
+    '^.+\\.(ts|html)$': 'ts-jest'
+  },
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$'
+    }
+  },
   coverageThreshold: {
     global: {
       branches: 0,
@@ -20,8 +23,8 @@ const config: Config.InitialOptions = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/app/**/*.ts',
+    '!src/app/**/*.module.ts',
+    '!src/app/routes/**/*.ts',
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
 };
-
-export default config;

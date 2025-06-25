@@ -15,7 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -34,7 +34,19 @@ jobs:
       # Install dependencies using npm ci
       - name: Install dependencies
         run: npm ci
-  
+
+      # Upload artifacts to workspace. This allows subsequent jobs to access the files and node_modules
+      - name: Upload workspace
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace
+          path: |
+            ./
+            node_modules/
+
+  # This job builds the Angular project using Nx
+  # It depends on the CI job to complete first
+  # and uses the files and node_modules from the CI job
   Build:
     needs: CI
     runs-on: ubuntu-latest

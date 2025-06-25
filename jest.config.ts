@@ -7,29 +7,33 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|html)$': ['ts-jest', {
       tsconfig: 'tsconfig.spec.json',
-      useESM: false
-    }]
+      useESM: false,
+    }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  collectCoverage: true,
+  moduleNameMapper: {
+    '^.+\\.(scss|css)$': '<rootDir>/src/__mocks__/styleMock.js',
+  },
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+      stringifyContentPathRegex: '\\.html$',
+    },
   },
+  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 0,
       functions: 0,
       lines: 0,
-      statements: 0
+      statements: 0,
     },
   },
   collectCoverageFrom: [
     'src/app/**/*.ts',
     '!src/app/**/*.module.ts',
-    '!src/app/routes/**/*.ts',
+    '!src/app/app.config.ts',
+    '!src/app/app.routes.ts',
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
 };

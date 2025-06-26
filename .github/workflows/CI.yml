@@ -45,5 +45,11 @@ jobs:
       - name: Unit tests
         run: npm run test:unit
 
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: reports/coverage/
+
       # - name: E2E tests
       #   run: npm run test:e2e

@@ -1,26 +1,29 @@
-import { Config } from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   preset: 'jest-preset-angular',
-  testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|html)$': ['ts-jest', {
-      tsconfig: 'tsconfig.spec.json',
-      useESM: false,
-    }],
+    '^.+\\.(ts|html)$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  moduleNameMapper: {
-    '^.+\\.(scss|css)$': '<rootDir>/src/__mocks__/styleMock.js',
-  },
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.spec.json',
+      tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
     },
   },
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   collectCoverage: true,
+  coverageReporters: ['html', 'text'],
+  coverageDirectory: '<rootDir>/reports/coverage',
+  collectCoverageFrom: [
+    'src/app/**/*.ts',
+    '!src/app/**/*.module.ts',
+    '!src/app/app.config.ts',
+    '!src/app/app.routes.ts',
+  ],
   coverageThreshold: {
     global: {
       branches: 0,
@@ -28,14 +31,7 @@ const config: Config = {
       lines: 0,
       statements: 0,
     },
-  },
-  collectCoverageFrom: [
-    'src/app/**/*.ts',
-    '!src/app/**/*.module.ts',
-    '!src/app/app.config.ts',
-    '!src/app/app.routes.ts',
-  ],
-  coverageDirectory: '<rootDir>/reports/coverage',
+  }
 };
 
 export default config;

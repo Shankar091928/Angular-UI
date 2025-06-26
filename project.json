@@ -90,7 +90,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
-        "coverage/angular-ui"
+        "{workspaceRoot}/reports/coverage"
       ],
       "options": {
         "jestConfig": "jest.config.ts",

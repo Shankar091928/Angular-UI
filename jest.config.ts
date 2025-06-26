@@ -7,23 +7,19 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|html)$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
     },
   },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
+  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+  },
   collectCoverage: true,
-  coverageReporters: ['html', 'text'],
-  coverageDirectory: '<rootDir>/reports/coverage',
-  collectCoverageFrom: [
-    'src/app/**/*.ts',
-    '!src/app/**/*.module.ts',
-    '!src/app/app.config.ts',
-    '!src/app/app.routes.ts',
-  ],
+  coverageDirectory: '<rootDir>/coverage',
+  coverageReporters: ['html', 'text-summary'],
   coverageThreshold: {
     global: {
       branches: 0,
@@ -31,7 +27,7 @@ const config: Config = {
       lines: 0,
       statements: 0,
     },
-  }
+  },
 };
 
 export default config;

@@ -1,9 +1,9 @@
-import type { Config } from 'jest';
+import type { InitialOptionsTsJest } from 'ts-jest';
 
-const config: Config = {
+const config: InitialOptionsTsJest = {
   preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   transform: {
     '^.+\\.(ts|html)$': 'ts-jest',
   },
@@ -11,12 +11,10 @@ const config: Config = {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$',
-    },
+      useESM: false // important: stays in CommonJS
+    }
   },
-  moduleFileExtensions: ['ts', 'html', 'js', 'json'],
-  moduleNameMapper: {
-    '^src/(.*)$': '<rootDir>/src/$1',
-  },
+  moduleFileExtensions: ['ts', 'js', 'html'],
   collectCoverage: true,
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['html', 'text-summary'],
@@ -25,9 +23,9 @@ const config: Config = {
       branches: 0,
       functions: 0,
       lines: 0,
-      statements: 0,
-    },
-  },
+      statements: 0
+    }
+  }
 };
 
-export default config;
+exp
